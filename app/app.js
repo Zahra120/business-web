@@ -3,6 +3,9 @@ var fs = require('fs'),
     app = express(),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
+    base64url = require('base64url'),
+    crypto = require('crypto'),
+    bcrypt = require ('bcrypt'),
     Sequelize = require('sequelize'),
     pg = require('pg');
     db = new Sequelize('zahra', 'zahra120', '', { dialect: 'postgres' });
@@ -22,13 +25,13 @@ var fs = require('fs'),
       type: Sequelize.STRING }
     });
 
-    User.sync({force: true}).then(function(){
-      return User.create({
-        firstName:'zahra',
-        lastName: 'sa'
-
-      });
-    });
+    // User.sync({force: true}).then(function(){
+    //   return User.create({
+    //     firstName:'zahra',
+    //     lastName: 'sa'
+    //
+    //   });
+    // });
     var Register = db.define('register', {
         email: Sequelize.STRING,
         password: Sequelize.STRING
@@ -45,10 +48,12 @@ app.get('/', function(req, res){
 app.post('/', function(req, res){
 
  var newUser = req.body;
-
- Register.sync({force: true}).then(function(){
-  return Register.create(newUser).then(function(newUser){
-     res.redirect('/');
+ bcrypt.hash(newUser.password, 10, function(error, hash){
+   newUser.password = hash;
+   Register.sync({force: true}).then(function(){
+    return Register.create(newUser).then(function(newUser){
+       res.redirect('/');
+     });
    });
  });
 
@@ -56,13 +61,6 @@ app.post('/', function(req, res){
 
 
  });
-
-
-
-
-
-
-
 
   app.listen(3000, function() {
     console.log('Web server started on port 3000');
