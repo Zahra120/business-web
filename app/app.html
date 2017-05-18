@@ -4,8 +4,10 @@
     <head>
       <meta name="viewport" content="width=device-width, initial-scale=1">
       <title>Zahra's website</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-<link rel = "stylesheet" href = "/Users/zahra120/Desktop/app/app.css" >
+
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+        <link rel = "stylesheet" href = "/Users/zahra120/Desktop/app/app.css" >
+
     </head>
     <body>
 
@@ -32,15 +34,25 @@
           <button type="submit" class="btn btn-default">Submit</button>
         </form>-->
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#">Log in</a></li>
+          <li class="dropdown">
+         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">My account <span class="caret"></span></a>
+         <ul class="dropdown-menu">
+           <li><a href="/account">Log in</a></li>
+           <li><a href="/account">Log out</a></li>
+           <li><a href="/account">My orders</a></li>
 
-          <li><a href="#">Home</a></li>
-          <li><a href="#">About</a></li>
-          <li><a href="#">Contact</a></li>
-          <li><a href="#">Products</a></li>
+
+         </ul>
+       </li>
+       <li><a href="/">Home</a></li>
+       <li><a href="#about">About</a></li>
+       <li><a href="#contact">Contact</a></li>
+       <li><a href="/products">Products</a></li>
+     </ul>
 
 
-        </ul>
+
+
 
       </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -57,38 +69,42 @@
 
 
  </div>
- <div class="container">
+ 
+<div id = "about">
 
 
- <form class="form-horizontal" action = "/" method = "post">
-  <div class="form-group">
-    <label for="inputEmail3" class="col-sm-2 control-label">Email</label>
-    <div class="col-sm-5">
-      <input type="email" class="form-control" id="inputEmail3" placeholder="Email" name="email">
+<div class = "container" >
+  <div class = "row">
+
+    <div class = "col-md-8 col-sm-offset-2">
+      "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+         eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+         enim ad minim veniam, quis nostrud exercitation ullamco laboris
+         nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+         in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+         nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+        sunt in culpa qui officia deserunt mollit anim id est laborum.
+        "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+           eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+           enim ad minim veniam, quis nostrud exercitation ullamco laboris
+           nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+           in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+           nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+          sunt in culpa qui officia deserunt mollit anim id est laborum."
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
+             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut
+             enim ad minim veniam, quis nostrud exercitation ullamco laboris
+             nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor
+             in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+             nulla pariatur. Excepteur sint occaecat cupidatat non proident,
+            sunt in culpa qui officia deserunt mollit anim id est laborum."
     </div>
+
+
   </div>
-  <div class="form-group">
-    <label for="inputPassword3" class="col-sm-2 control-label">Password</label>
-    <div class="col-sm-5">
-      <input type="password" class="form-control" id="inputPassword3" placeholder="Password" name="password">
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <div class="checkbox">
-        <label>
-          <input type="checkbox"> Remember me
-        </label>
-      </div>
-    </div>
-  </div>
-  <div class="form-group">
-    <div class="col-sm-offset-2 col-sm-10">
-      <button type="submit" class="btn btn-default">Sign in</button>
-    </div>
-  </div>
-</form>
 </div>
+</div>
+
 
 
 
