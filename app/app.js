@@ -4,10 +4,12 @@ var fs = require('fs'),
     morgan = require('morgan'),
     bodyParser = require('body-parser'),
     bcrypt = require ('bcrypt'),
+    pug = require('pug'),
     Sequelize = require('sequelize'),
     session = require('express-session'),
     pg = require('pg');
-    db = new Sequelize('zahra', 'zahra120', '', { dialect: 'postgres' });
+    db = new Sequelize('zahra', 'zahra120', '', { dialect: 'postgres' })
+    ;
     app.use(function(req, res, next){
       console.log(`${req.method} request for path '${req.url}' - ${req.body}`);
       next();
@@ -21,6 +23,7 @@ var fs = require('fs'),
       saveUninitialized: true,
       cookie: { secure: true }
     }));
+    app.set('view engine', 'pug');
 
     var Register = db.define('register', {
       name: Sequelize.STRING,
@@ -32,11 +35,11 @@ var fs = require('fs'),
 
 
 app.get('/', function(req, res){
-  res.sendFile('/Users/zahra120/Desktop/app/app.html');
+  res.render('index');
 });
 
 app.get('/products', function(req, res){
-  res.sendFile('/Users/zahra120/Desktop/app/products.html');
+  res.render('products');
 });
 
 app.get('/logout', function(req, res){
@@ -45,11 +48,11 @@ app.get('/logout', function(req, res){
 });
 
 app.get('/account', function(req, res){
-  res.sendFile('/Users/zahra120/Desktop/app/account.html');
+  res.render('account');
 
 });
 app.get('/register', function(req, res){
-    res.sendFile('/Users/zahra120/Desktop/app/register.html');
+    res.render('register');
 });
 
 app.post('/register', function(req, res){
