@@ -33,13 +33,37 @@ var fs = require('fs'),
 
     });
 
+    var Product = db.define('product', {
+      title: Sequelize.STRING,
+      price: Sequelize.STRING,
+      description: Sequelize.TEXT
+    });
+
+    var Basket = db.define('basket', {
+      name: Sequelize.STRING
+    });
+
 
 app.get('/', function(req, res){
   res.render('index');
 });
 
-app.get('/products', function(req, res){
-  res.render('products');
+app.get('/product/new', function(req, res){
+  res.render('product/new');
+});
+
+app.get('/product', function(req, res){
+  Product.findAll({}).then(function(products){
+    res.render('product/index', {products: products});
+  });
+
+});
+
+app.get('/product/:id', function(req, res){
+  Product.findById(req.params.id).then(function(product){
+    res.render('product/show', { product: product});
+  });
+
 });
 
 app.get('/logout', function(req, res){
@@ -66,6 +90,14 @@ app.post('/register', function(req, res){
     });
   });
 
+ });
+
+ app.post('/new', function(req, res){
+   Product.sync({force: false}).then(function(){
+     return Product.create(req.body).then(function(){
+       res.redirect('/product');
+     });
+   });
  });
 
 app.post('/login', function(req, res){

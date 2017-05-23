@@ -1,0 +1,42 @@
+doctype html
+html
+
+	head
+		meta(name="viewport" content="width=device-width, initial-scale=1")
+		title Zahra's website
+		link(rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous")
+		link(rel = "stylesheet" href = "/Users/zahra120/Desktop/app/app.css" )
+
+
+	body
+		nav(class="navbar navbar-default navbar-fixed-top")
+			div(class="container-fluid")
+				div(class="navbar-header")
+					button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false")
+						span(class="sr-only") Toggle navigation
+						span(class="icon-bar")
+						span(class="icon-bar")
+						span(class="icon-bar")
+					a(class="navbar-brand" href="/") Brand
+				div(class="collapse navbar-collapse" id="bs-example-navbar-collapse-1")
+					ul(class="nav navbar-nav navbar-right")
+						li(class="dropdown")
+							a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") My account
+								span(class="caret")
+							ul(class="dropdown-menu")
+								li
+									a(href="#") Log in
+								li
+									a(href="#") Log out
+								li
+									a(href="#") My orders
+						li
+							a(href="/") Home
+		div(class = "container" id = "products")
+			div(class = "row")
+				div(class = "col-md-3 col-sm-offset-2")
+					each product in products
+						img( src = "" width = "" height = "")
+						h3= product.title
+						h4= product.price
+						p= product.description
