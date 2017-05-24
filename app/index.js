@@ -8,7 +8,8 @@ var fs = require('fs'),
     Sequelize = require('sequelize'),
     session = require('express-session'),
     pg = require('pg');
-    db = new Sequelize('zahra', 'zahra120', '', { dialect: 'postgres' })
+    db = new Sequelize('zahra', 'zahra120', '', { dialect: 'postgres' }),
+    methodOverride = require('method-override')
     ;
     app.use(function(req, res, next){
       console.log(`${req.method} request for path '${req.url}' - ${req.body}`);
@@ -23,6 +24,14 @@ var fs = require('fs'),
       saveUninitialized: true,
       cookie: { secure: true }
     }));
+
+  app.use(methodOverride(function(req, res)  {
+  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
+    var method = req.body._method;
+    delete req.body._method;
+    return method;
+  }})
+);
     app.set('view engine', 'pug');
 
     var Register = db.define('register', {
@@ -93,7 +102,7 @@ app.post('/register', function(req, res){
  app.post('/new', function(req, res){
    Product.sync({force: false}).then(function(){
      return Product.create(req.body).then(function(){
-       res.redirect('/product');
+       res.redirect('/products');
      });
    });
  });
@@ -116,9 +125,19 @@ app.post('/login', function(req, res){
       res.redirect('/register');
    });
 });
-app.delete("/products/:id", function(req, res){
-  Product.destroy();
+
+app.delete('/products/:id', function(req, res){
+  Product.destroy({
+    where: {
+      id: req.params.id
+    }
+
+}).then( function(){
+  res.redirect('/products');
+  });
+
 });
+
 
   app.listen(3000, function() {
     console.log('Web server started on port 3000');
