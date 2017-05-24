@@ -48,18 +48,17 @@ app.get('/', function(req, res){
   res.render('index');
 });
 
-app.get('/product/new', function(req, res){
+app.get('/products/new', function(req, res){
   res.render('product/new');
 });
 
-app.get('/product', function(req, res){
+app.get('/products', function(req, res){
   Product.findAll({}).then(function(products){
     res.render('product/index', {products: products});
   });
-
 });
 
-app.get('/product/:id', function(req, res){
+app.get('/products/:id', function(req, res){
   Product.findById(req.params.id).then(function(product){
     res.render('product/show', { product: product});
   });
@@ -89,7 +88,6 @@ app.post('/register', function(req, res){
      });
     });
   });
-
  });
 
  app.post('/new', function(req, res){
@@ -117,6 +115,9 @@ app.post('/login', function(req, res){
 }).catch(function(error) {
       res.redirect('/register');
    });
+});
+app.delete("/products/:id", function(req, res){
+  Product.destroy();
 });
 
   app.listen(3000, function() {
