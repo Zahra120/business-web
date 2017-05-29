@@ -86,6 +86,11 @@ app.get('/account', function(req, res){
 app.get('/register', function(req, res){
     res.render('register');
 });
+app.get('/products/:id/edit', function(req, res){
+  Product.findById(req.params.id).then(function(product){
+    res.render('product/edit', { product: product});
+  });
+});
 
 app.post('/register', function(req, res){
  var newUser = req.body;
@@ -134,6 +139,17 @@ app.delete('/products/:id', function(req, res){
 
 }).then( function(){
   res.redirect('/products');
+  });
+
+});
+
+app.put('/products/:id', function(req, res){
+  Product.update(req.body, {
+    where: {
+      id: req.params.id
+    }
+  }).then(function(){
+    res.redirect('/products/' + req.params.id);
   });
 
 });
