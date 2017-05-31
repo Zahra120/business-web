@@ -9,12 +9,12 @@ var fs = require('fs'),
     session = require('express-session'),
     pg = require('pg');
     db = new Sequelize('zahra', 'zahra120', '', { dialect: 'postgres' }),
-    methodOverride = require('method-override')
-    ;
-    app.use(function(req, res, next){
-      console.log(`${req.method} request for path '${req.url}' - ${req.body}`);
-      next();
-    });
+    methodOverride = require('method-override');
+
+    // app.use(function(req, res, next){
+    //   console.log(`${req.method} request for path '${req.url}' - ${req.body}`);
+    //   next();
+    // });
     app.use(express.static( '/'));
     app.use(bodyParser.urlencoded({ extended: false }));
     app.use(morgan('dev'));
@@ -22,7 +22,7 @@ var fs = require('fs'),
       secret: 'keyboard cat',
       resave: false,
       saveUninitialized: true,
-      cookie: { secure: true }
+      cookie: { secure: false }
     }));
 
   app.use(methodOverride(function(req, res)  {
@@ -61,10 +61,15 @@ app.get('/products/new', function(req, res){
   res.render('product/new');
 });
 
-app.get('/products', function(req, res){
-  Product.findAll({}).then(function(products){
-    res.render('product/index', {products: products});
-  });
+app.get('/admin/products', function(req, res){
+  if(!req.session.user){
+    res.redirect('/login');
+  }else{
+    Product.findAll({}).then(function(products){
+      res.render('product/index', {products: products});
+    });
+  }
+
 });
 
 app.get('/products/:id', function(req, res){
@@ -76,21 +81,26 @@ app.get('/products/:id', function(req, res){
 
 app.get('/logout', function(req, res){
    req.session.user = undefined;
-   res.redirect('/');
+   res.redirect('/login');
 });
 
-app.get('/account', function(req, res){
-  res.render('account');
 
-});
 app.get('/register', function(req, res){
     res.render('register');
 });
-app.get('/products/:id/edit', function(req, res){
+app.get('/admin/products/:id/edit', function(req, res){
   Product.findById(req.params.id).then(function(product){
     res.render('product/edit', { product: product});
   });
 });
+
+app.get('/login', function(req, res) {
+  if (req.session.user) {
+    return res.redirect('/');
+  }
+  res.render('account');
+});
+
 
 app.post('/register', function(req, res){
  var newUser = req.body;
@@ -123,7 +133,7 @@ app.post('/login', function(req, res){
         req.session.user = userInDb;
         res.redirect('/');
       }else{
-        res.redirect('/account');
+        res.redirect('/login');
       }
     });
 }).catch(function(error) {

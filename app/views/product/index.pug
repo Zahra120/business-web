@@ -31,7 +31,8 @@ block content
 			div(class = "row")
 				div(class = "col-md-3 col-sm-offset-2")
 					each product in products
-						img( src = "" width = "" height = "")
+						a(href="/products/" + product.id)
+							img( src = "/Users/zahra120/desktop/app/medi.jpg" width="150px" height="150px")
 						h3= product.title
 						h4= product.price
 						p= 	product.description
