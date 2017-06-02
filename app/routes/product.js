@@ -3,14 +3,10 @@ var express = require('express'),
     Sequelize = require('sequelize')
     ;
 
-    var Product = db.define('product', {
-      title: Sequelize.STRING,
-      price: Sequelize.STRING,
-      description: Sequelize.TEXT
-    });
 
+var db = require('../models');
 
-router.get('/products/new', function(req, res){
+router.get('/admin/products/new', function(req, res){
   res.render('product/new');
 });
 
@@ -18,51 +14,58 @@ router.get('/admin/products', function(req, res){
   if(!req.session.user){
     res.redirect('/login');
   }else{
-    Product.findAll({}).then(function(products){
+    db.Product.findAll({}).then(function(products){
       res.render('product/index', {products: products});
     });
   }
 });
 
 router.get('/products/:id', function(req, res){
-  Product.findById(req.params.id).then(function(product){
+  db.Product.findById(req.params.id).then(function(product){
     res.render('product/show', { product: product});
   });
 });
 
 router.get('/admin/products/:id/edit', function(req, res){
-  Product.findById(req.params.id).then(function(product){
+  db.Product.findById(req.params.id).then(function(product){
     res.render('product/edit', { product: product});
   });
 });
 
+router.get('/products', function(req, res){
+  db.Product.findAll({}).then(function(products){
+    res.render('product/index', {products: products});
+  });
+});
+
 router.post('/new', function(req, res){
-  Product.sync({force: false}).then(function(){
-    return Product.create(req.body).then(function(){
-      res.redirect('/products');
+  db.Product.sync({force: false}).then(function(){
+    return db.Product.create(req.body).then(function(){
+      res.redirect('/admin/products');
     });
   });
 });
 
+
 router.delete('/products/:id', function(req, res){
-  Product.destroy({
+  db.Product.destroy({
     where: {
       id: req.params.id
     }
 
 }).then( function(){
-  res.redirect('/products');
+  res.redirect('/admin/products');
   });
 
 });
 
 router.put('/products/:id', function(req, res){
-  Product.update(req.body, {
+  db.Product.update(req.body, {
     where: {
       id: req.params.id
     }
   }).then(function(){
-    res.redirect('/products/' + req.params.id);
+    res.redirect('/products/'+ req.params.id);
   });
 
 });

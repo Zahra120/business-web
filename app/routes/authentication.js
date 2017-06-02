@@ -4,13 +4,8 @@ var express = require('express'),
      bcrypt = require ('bcrypt')
     ;
 
-var Register = db.define('register', {
-  name: Sequelize.STRING,
-  familyName: Sequelize.STRING,
-  email: Sequelize.STRING,
-  password: Sequelize.STRING
+var db = require('../models');
 
-});
 
 router.get('/logout', function(req, res){
    req.session.user = undefined;
@@ -32,8 +27,8 @@ router.post('/register', function(req, res){
  var newUser = req.body;
  bcrypt.hash(newUser.password, 10, function(error, hash){
    newUser.password = hash;
-   Register.sync({force: false}).then(function(){
-    return Register.create(newUser).then(function(newUser){
+   db.Register.sync({force: false}).then(function(){
+    return db.Register.create(newUser).then(function(newUser){
        res.redirect('/');
      });
     });
@@ -41,7 +36,7 @@ router.post('/register', function(req, res){
  });
 
 router.post('/login', function(req, res){
-  Register.findOne({
+  db.Register.findOne({
     where: {
       email: req.body.email
     }
