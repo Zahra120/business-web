@@ -36,16 +36,12 @@ app.use('/', productRoute);
 
 app.set('view engine', 'pug');
 
-// var Basket = db.define('basket', {
-//   name: Sequelize.STRING
-// });
-
-
 app.get('/', function(req, res){
   res.render('index');
 });
 db.sequelize.sync().then(function(){
 app.listen(3000, function() {
   console.log('Web server started on port 3000');
+
   });
 });

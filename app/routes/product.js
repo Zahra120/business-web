@@ -34,7 +34,7 @@ router.get('/admin/products/:id/edit', function(req, res){
 
 router.get('/products', function(req, res){
   db.Product.findAll({}).then(function(products){
-    res.render('product/index', {products: products});
+    res.render('product/product', {products: products});
   });
 });
 
