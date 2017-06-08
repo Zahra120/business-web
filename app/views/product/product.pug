@@ -38,6 +38,6 @@ block content
 						p= 	product.description
 						div(class = "row")
 							div(class = "col-md-3 col-sm-offset-2")
-								form(class="form-horizontal" action=  method = "POST")
+								form(class="form-horizontal" action= "/basket/" + product.id method = "POST")
 									div(class="form-group")
 										button(class="btn btn-default" type="submit"  ) Order it!

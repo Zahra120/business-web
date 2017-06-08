@@ -1,12 +1,16 @@
-var pg = require('pg'),
-    Sequelize = require('sequelize') ;
-module.exports = function(db, DataTypes){
-  var Register = db.define('Register', {
-    name: Sequelize.STRING,
-    familyName: Sequelize.STRING,
-    email: Sequelize.STRING,
-    password: Sequelize.STRING
-
+'use strict';
+module.exports = function(sequelize, DataTypes) {
+  var User = sequelize.define('User', {
+    name: DataTypes.STRING,
+    familyName: DataTypes.STRING,
+    email: DataTypes.STRING,
+    password: DataTypes.STRING
+  }, {
+    classMethods: {
+      associate: function(models) {
+        // associations can be defined here
+      }
+    }
   });
-  return Register;
+  return User;
 };

@@ -1,11 +1,15 @@
-var pg = require('pg'),
-    Sequelize = require('sequelize');
-
-module.exports = function(sequelize, DataTypes){
+'use strict';
+module.exports = function(sequelize, DataTypes) {
   var Product = sequelize.define('Product', {
-    title: Sequelize.STRING,
-    price: Sequelize.STRING,
-    description: Sequelize.TEXT
+    title: DataTypes.STRING,
+    price: DataTypes.INTEGER,
+    decription: DataTypes.TEXT
+  }, {
+    classMethods: {
+      associate: function(models) {
+        // associations can be defined here
+      }
+    }
   });
   return Product;
 };

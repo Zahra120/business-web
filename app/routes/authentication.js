@@ -27,8 +27,8 @@ router.post('/register', function(req, res){
  var newUser = req.body;
  bcrypt.hash(newUser.password, 10, function(error, hash){
    newUser.password = hash;
-   db.Register.sync({force: false}).then(function(){
-    return db.Register.create(newUser).then(function(newUser){
+   db.User.sync({force: false}).then(function(){
+    return db.User.create(newUser).then(function(newUser){
        res.redirect('/');
      });
     });
@@ -36,7 +36,7 @@ router.post('/register', function(req, res){
  });
 
 router.post('/login', function(req, res){
-  db.Register.findOne({
+  db.User.findOne({
     where: {
       email: req.body.email
     }
