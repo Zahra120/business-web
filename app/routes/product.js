@@ -47,7 +47,7 @@ router.post('/new', function(req, res){
 });
 router.post('/basket/:id', function(req, res){
   db.Product.findById(req.params.id).then(function(product){
-    return db.Basket.create(product).then (function(){
+    return db.Basket.create({title: product.title}).then(function(product){
       res.redirect('/products');
     });
   });
