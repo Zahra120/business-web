@@ -20,8 +20,14 @@ router.get('/admin/products', function(req, res){
   }
 });
 router.get('/products/basket', function(req, res){
-  db.Basket.findAll({}).then(function(products){
-    res.render('product/basket', {products: products});
+  db.Basket.findAll({}).then(function(baskets){
+    res.render('basket/basket', {baskets: baskets});
+  });
+});
+
+router.get('/baskets/:id', function(req, res){
+  db.Basket.findById(req.params.id).then(function(basket){
+    res.render('basket/show', { basket: basket});
   });
 });
 
@@ -51,8 +57,8 @@ router.post('/new', function(req, res){
   });
 });
 router.post('/basket/:id', function(req, res){
-  db.Product.findById(req.params.id).then(function(product){
-    return db.Basket.create({title: product.title}).then(function(product){
+  db.Product.findById(req.params.id).then(function(basket){
+    return db.Basket.create({title: basket.title}).then(function(basket){
       res.redirect('/products');
     });
   });
@@ -69,6 +75,15 @@ router.delete('/products/:id', function(req, res){
   res.redirect('/admin/products');
   });
 
+});
+router.delete('/basket/:id', function(req, res){
+  db.Basket.destroy({
+    where: {
+      id: req.params.id
+    }
+  }).then( function(){
+    res.redirect('/products/basket');
+    });
 });
 
 router.put('/products/:id', function(req, res){

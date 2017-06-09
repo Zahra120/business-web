@@ -30,7 +30,11 @@ block content
 		div(class = "container" id = "products")
 			div(class = "row")
 				div(class = "col-md-3 col-sm-offset-2")
-					each product in products
-						a(href="/products/" + product.id)
+					each basket in baskets
+						a(href="/baskets/" + basket.id)
 							img( src = "/Users/zahra120/desktop/app/medi.jpg" width="150px" height="150px")
-						h3= product.title
+						h3= basket.title
+						form(class="form-horizontal" action="/basket/" + basket.id  method = "POST")
+							div(class="form-group")
+								input(type="hidden" class="form-control" name="_method" value="DELETE")
+								button(class="btn btn-default" type="submit" data-product=basket.id ) Delete
