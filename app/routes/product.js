@@ -19,6 +19,11 @@ router.get('/admin/products', function(req, res){
     });
   }
 });
+router.get('/products/basket', function(req, res){
+  db.Basket.findAll({}).then(function(products){
+    res.render('product/basket', {products: products});
+  });
+});
 
 router.get('/products/:id', function(req, res){
   db.Product.findById(req.params.id).then(function(product){
